@@ -1,0 +1,52 @@
+/* Styl dla nowo dodanego zadania */
+.new-task-tile {
+  border: 1px solid #4caf50; /* Kolor granicy */
+  border-radius: 5px; /* Zaokrąglenie krawędzi */
+  background-color: #e8f5e9; /* Kolor tła */
+  padding: 10px; /* Wewnętrzny odstęp */
+  margin-bottom: 10px; /* Margines dolny */
+}
+
+/* Styl dla nazwy zadania */
+.task-name {
+  font-size: 16px; /* Rozmiar czcionki */
+}
+
+/* Styl dla przycisku usuwania */
+.delete-btn {
+  background-color: #f44336; /* Kolor tła */
+  color: white; /* Kolor tekstu */
+  border: none; /* Brak obramowania */
+  padding: 5px 10px; /* Wewnętrzny odstęp */
+  border-radius: 3px; /* Zaokrąglenie krawędzi */
+  cursor: pointer; /* Zmień kursor na wskaźnik */
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f; /* Kolor tła po najechaniu */
+}
+
+/* Styl dla formularza dodawania zadania */
+.add-task {
+  margin-top: 20px; /* Margines górny */
+}
+
+.task-input {
+  padding: 5px; /* Wewnętrzny odstęp */
+  border: 1px solid #ccc; /* Kolor granicy */
+  border-radius: 3px; /* Zaokrąglenie krawędzi */
+  margin-right: 10px; /* Margines prawy */
+}
+
+.add-btn {
+  background-color: #4caf50; /* Kolor tła */
+  color: white; /* Kolor tekstu */
+  border: none; /* Brak obramowania */
+  padding: 5px 10px; /* Wewnętrzny odstęp */
+  border-radius: 3px; /* Zaokrąglenie krawędzi */
+  cursor: pointer; /* Zmień kursor na wskaźnik */
+}
+
+.add-btn:hover {
+  background-color: #388e3c; /* Kolor tła po najechaniu */
+}

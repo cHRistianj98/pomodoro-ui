@@ -1,0 +1,11 @@
+<div>
+  <h2>Task List</h2>
+  <div *ngFor="let task of tasks" class="task-tile">
+    <div class="task-description">{{ task.description }}</div>
+    <div class="pomodoro-sessions">Number of Pomodoro Sessions: {{ task.numberOfPomodoroSessions }}</div>
+  </div>
+</div>
+<div class="add-task">
+  <input type="text" [(ngModel)]="newTaskName" class="task-input">
+  <button (click)="addTask()" class="add-btn">Add task</button>
+</div>

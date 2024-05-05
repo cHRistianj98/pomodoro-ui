@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Importujesz CommonModule, jeśli używasz dyrektyw Angulara jak *ngIf, *ngFor
+import { CommonModule } from '@angular/common';
 import { Subscription, timer } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-timer',
   standalone: true,
-  imports: [CommonModule], // Zaimportuj tutaj inne wymagane moduły/dyrektywy/komponenty
+  imports: [CommonModule],
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.css']
 })
 export class TimerComponent implements OnInit, OnDestroy {
-  private countdown: number = 30 * 60; // 30 minut w sekundach
+  private countdown: number = 30 * 60;
   timeDisplay: string = '30:00';
   private timerSubscription?: Subscription;
 
@@ -36,9 +36,17 @@ export class TimerComponent implements OnInit, OnDestroy {
     );
   }
 
-  private displayTime(seconds: number): void {
+  stopTimer(): void {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+      this.timerSubscription = undefined;
+    }
+  }
+
+  displayTime(seconds: number): void {
     const minutes = Math.floor(seconds / 60);
     const secondsLeft = seconds % 60;
     this.timeDisplay = `${minutes}:${secondsLeft < 10 ? '0' : ''}${secondsLeft}`;
   }
 }
+
