@@ -1,9 +1,10 @@
 <div>
   <h2>Task List</h2>
-  <div *ngFor="let task of tasks" class="task-tile">
-    <div class="task-description">{{ task.description }}</div>
-    <div class="pomodoro-sessions">Number of Pomodoro Sessions: {{ task.numberOfPomodoroSessions }}</div>
-  </div>
+  <ul>
+    <li *ngFor="let task of tasks">
+      {{task.description}} - {{task.numberOfPomodoroSessions}}
+    </li>
+  </ul>
 </div>
 <div class="add-task">
   <input type="text" [(ngModel)]="newTaskName" class="task-input">

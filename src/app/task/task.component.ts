@@ -1,17 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Task } from './task.model';
+import { TaskService } from "./services/task.service";
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })
-export class TaskComponent {
-  tasks: Task[] = [
-    { description: "desc1", numberOfPomodoroSessions: 1 },
-    { description: "desc2", numberOfPomodoroSessions: 2 }
-  ];
+export class TaskComponent implements OnInit {
+  tasks!: Task[]; // ! means that value will be effectively assigned later
   newTaskName: string = '';
+
+  constructor(private taskService: TaskService) {
+  }
+
+  ngOnInit(): void {
+    this.getTasks()
+  }
+
+  getTasks(): void {
+    this.taskService.getTasks()
+      .subscribe(tasks => this.tasks = tasks);
+  }
 
   addTask() {
     if (this.newTaskName.trim() !== '') {
