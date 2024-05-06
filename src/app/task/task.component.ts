@@ -9,7 +9,7 @@ import { TaskService } from "./services/task.service";
 })
 export class TaskComponent implements OnInit {
   tasks!: Task[]; // ! means that value will be effectively assigned later
-  newTaskName: string = '';
+  taskDescription: string = '';
 
   constructor(private taskService: TaskService) {
   }
@@ -24,13 +24,16 @@ export class TaskComponent implements OnInit {
   }
 
   addTask() {
-    if (this.newTaskName.trim() !== '') {
+    if (this.taskDescription.trim() !== '') {
       const newTask: Task = {
-        description: 'description',
+        description: this.taskDescription,
         numberOfPomodoroSessions: 1
       };
-      this.tasks.push(newTask);
-      this.newTaskName = 'sdasd';
+      this.taskService.addTask(newTask)
+        .subscribe(task => {
+          this.tasks.push(task);
+          this.taskDescription = '';
+        });
     }
   }
 
