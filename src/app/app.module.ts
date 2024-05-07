@@ -4,6 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { NgForOf } from "@angular/common";
 import { TaskService } from "./task/services/task.service";
 import { HttpClientModule } from "@angular/common/http";
+import {TaskTileComponent} from "./task-tile/task-tile.component";
 
 @NgModule({
   exports: [
@@ -16,7 +17,8 @@ import { HttpClientModule } from "@angular/common/http";
   ],
   providers: [TaskService],
   declarations: [
-    TaskComponent
+    TaskComponent,
+    TaskTileComponent
   ]
 })
 export class AppModule {

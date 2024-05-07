@@ -27,7 +27,8 @@ export class TaskComponent implements OnInit {
     if (this.taskDescription.trim() !== '') {
       const newTask: Task = {
         description: this.taskDescription,
-        numberOfPomodoroSessions: 1
+        numberOfPomodoroSessions: 1,
+        done: false
       };
       this.taskService.addTask(newTask)
         .subscribe(task => {

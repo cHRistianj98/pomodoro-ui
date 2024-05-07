@@ -1,0 +1,4 @@
+<div class="task-tile">
+  <input type="checkbox" [checked]="task.done" (change)="onCheckboxChange($event)">
+  <p>{{ task.description }}  {{ task.numberOfPomodoroSessions }}</p>
+</div>
