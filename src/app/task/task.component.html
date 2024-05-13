@@ -4,7 +4,13 @@
     <app-task-tile [task]="task"></app-task-tile>
   </div>
 </div>
-<div class="add-task">
-  <input type="text" [(ngModel)]="taskDescription" class="task-input">
-  <button (click)="addTask()" class="add-btn">Add task</button>
+
+<div class="task-container">
+  <h2>Create task</h2>
+  <p>Enter task description: </p>
+  <input [(ngModel)]="taskDescription" type="text" class="task-input">
+  <p>Enter number of pomodoro sessions: </p>
+  <input [(ngModel)]="numberOfPomodoroSessions" type="number" min="1" value="1">
+  <button (click)="addTask()" class="add-btn">Save</button>
+  <button class="add-btn">Cancel</button>
 </div>

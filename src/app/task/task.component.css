@@ -45,8 +45,34 @@
   padding: 5px 10px; /* Wewnętrzny odstęp */
   border-radius: 3px; /* Zaokrąglenie krawędzi */
   cursor: pointer; /* Zmień kursor na wskaźnik */
+  margin: 10px;
+  width: 75px;
+  text-align: center;
 }
 
 .add-btn:hover {
   background-color: #388e3c; /* Kolor tła po najechaniu */
+}
+
+.task-container {
+  width: 200px;
+  height: 320px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+  margin: 10px;
+}
+
+.create-task-button {
+  margin: 10px;
+  width: 75px;
+  text-align: center;
 }

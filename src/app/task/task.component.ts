@@ -9,7 +9,8 @@ import { TaskService } from "./services/task.service";
 })
 export class TaskComponent implements OnInit {
   tasks!: Task[]; // ! means that value will be effectively assigned later
-  taskDescription: string = '';
+  taskDescription = '';
+  numberOfPomodoroSessions = 1;
 
   constructor(private taskService: TaskService) {
   }
@@ -27,7 +28,7 @@ export class TaskComponent implements OnInit {
     if (this.taskDescription.trim() !== '') {
       const newTask: Task = {
         description: this.taskDescription,
-        numberOfPomodoroSessions: 1,
+        numberOfPomodoroSessions: this.numberOfPomodoroSessions,
         done: false
       };
       this.taskService.addTask(newTask)

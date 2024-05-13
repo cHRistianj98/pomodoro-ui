@@ -1,4 +1,12 @@
 <div class="task-tile">
-  <input type="checkbox" [checked]="task.done" (change)="onCheckboxChange($event)">
-  <p>{{ task.description }}  {{ task.numberOfPomodoroSessions }}</p>
+  <div class="checkbox-wrapper-56">
+    <label class="container">
+      <input type="checkbox" [checked]="task.done" (change)="onCheckboxChange($event)">
+      <div class="checkmark"></div>
+    </label>
+  </div>
+  <p style="margin: 10px; padding: 10px; background-color: #f0f0f0;"> {{ task.description }} </p>
+  <p style="margin: 10px; padding: 10px; background-color: #f0f0f0; font-family: 'Lato', sans-serif;">
+    {{ task.numberOfPomodoroSessions }}
+  </p>
 </div>
