@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
-import { Task } from '../task/task.model';
+import {Task} from '../task/task.model';
+import {TaskService} from "../task/services/task.service";
 
 @Component({
   selector: 'app-task-tile',
@@ -9,9 +10,14 @@ import { Task } from '../task/task.model';
 export class TaskTileComponent {
   @Input() task!: Task;
 
+  constructor(private taskService: TaskService) {
+  }
+
   onCheckboxChange(event: Event) {
     if (event.target instanceof HTMLInputElement) {
-      this.task.done = event.target.checked;
+      // this.task.done = event.target.checked;
+      this.taskService.toggleTask(this.task.id)
+        .subscribe(task => this.task = task)
     }
   }
 }

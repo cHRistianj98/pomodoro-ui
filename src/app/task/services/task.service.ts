@@ -20,4 +20,8 @@ export class TaskService {
   addTask(task: Task): Observable<Task> {
     return this.http.post<Task>(this.tasksUrl, task);
   }
+
+  toggleTask(id: number): Observable<Task> {
+    return this.http.patch<Task>(`${this.tasksUrl}/${id}`, {});
+  }
 }
