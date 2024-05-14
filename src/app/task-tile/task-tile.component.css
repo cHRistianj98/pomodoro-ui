@@ -1,19 +1,20 @@
 .task-tile {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: #f0f0f0;
-  width: 200px;
-  margin: 10px;
+  width: 500px;
+  margin: 5px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
- .checkbox-wrapper-56 *,
- .checkbox-wrapper-56 ::after,
- .checkbox-wrapper-56 ::before {
-   box-sizing: border-box;
- }
+.checkbox-wrapper-56 *,
+.checkbox-wrapper-56 ::after,
+.checkbox-wrapper-56 ::before {
+  box-sizing: border-box;
+}
 
 .checkbox-wrapper-56 .container input {
   opacity: 1;
@@ -21,8 +22,8 @@
   cursor: pointer;
   height: 50px;
   width: 50px;
-  box-shadow: -10px -10px 15px rgba(255,255,255,0.5),
-  10px 10px 15px rgba(0,0,70,0.12);
+  box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
+  10px 10px 15px rgba(0, 0, 70, 0.12);
   border-radius: 50%;
   border: 8px solid #ececec;
   outline: none;
@@ -54,10 +55,10 @@
 }
 
 .checkbox-wrapper-56 .container input:checked {
-  box-shadow: -10px -10px 15px rgba(255,255,255,0.5),
-  10px 10px 15px rgba(70,70,70,0.12),
-  inset -10px -10px 15px rgba(255,255,255,0.5),
-  inset 10px 10px 15px rgba(70,70,70,0.12);
+  box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
+  10px 10px 15px rgba(70, 70, 70, 0.12),
+  inset -10px -10px 15px rgba(255, 255, 255, 0.5),
+  inset 10px 10px 15px rgba(70, 70, 70, 0.12);
   transition: .5s;
 }
 
@@ -67,4 +68,3 @@
   border-width: 0 0.15em 0.15em 0;
   transform: rotate(45deg);
 }
-

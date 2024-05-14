@@ -5,8 +5,9 @@
       <div class="checkmark"></div>
     </label>
   </div>
-  <p style="margin: 10px; padding: 10px; background-color: #f0f0f0;"> {{ task.description }} </p>
+  <p [ngStyle]="{ 'text-decoration': task.done ? 'line-through' : 'none' }"
+     style="margin: 10px; padding: 10px; background-color: #f0f0f0;"> {{ task.description }} </p>
   <p style="margin: 10px; padding: 10px; background-color: #f0f0f0; font-family: 'Lato', sans-serif;">
-    {{ task.numberOfPomodoroSessions }}
+    {{ task.currentPomodoroSession }}/{{ task.numberOfPomodoroSessions }}
   </p>
 </div>

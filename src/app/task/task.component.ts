@@ -8,6 +8,7 @@ import { TaskService } from "./services/task.service";
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit {
+
   tasks!: Task[]; // ! means that value will be effectively assigned later
   taskDescription = '';
   numberOfPomodoroSessions = 1;
@@ -29,7 +30,8 @@ export class TaskComponent implements OnInit {
       const newTask: Task = {
         description: this.taskDescription,
         numberOfPomodoroSessions: this.numberOfPomodoroSessions,
-        done: false
+        done: false,
+        currentPomodoroSession: 0
       };
       this.taskService.addTask(newTask)
         .subscribe(task => {
