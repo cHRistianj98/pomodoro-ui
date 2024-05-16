@@ -1,5 +1,5 @@
 export interface Task {
-  id: number;
+  id?: number | null;
   description: string;
   numberOfPomodoroSessions: number;
   done: boolean;

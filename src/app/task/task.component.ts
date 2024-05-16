@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Task } from './task.model';
+import { Task } from './data/task.model';
 import { TaskService } from "./services/task.service";
 
 @Component({
@@ -28,7 +28,6 @@ export class TaskComponent implements OnInit {
   addTask() {
     if (this.taskDescription.trim() !== '') {
       const newTask: Task = {
-        id: 1, // to change
         description: this.taskDescription,
         numberOfPomodoroSessions: this.numberOfPomodoroSessions,
         done: false,

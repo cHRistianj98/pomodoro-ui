@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { Task } from '../task.model';
+import { Task } from '../data/task.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class TaskService {
     return this.http.post<Task>(this.tasksUrl, task);
   }
 
-  toggleTask(id: number): Observable<Task> {
+  toggleTask(id?: number | null | undefined): Observable<Task> {
     return this.http.patch<Task>(`${this.tasksUrl}/${id}`, {});
   }
 }

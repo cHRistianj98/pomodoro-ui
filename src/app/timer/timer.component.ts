@@ -11,12 +11,12 @@ import { map, takeWhile } from 'rxjs/operators';
   styleUrls: ['./timer.component.css']
 })
 export class TimerComponent implements OnInit, OnDestroy {
-  private countdown: number = 30 * 60;
-  timeDisplay: string = '30:00';
+  private numberOfSecondsForPomodoroSession = 0.1 * 60;
+  timeDisplay = '';
   private timerSubscription?: Subscription;
 
   ngOnInit(): void {
-    this.displayTime(this.countdown);
+    this.displayTime(this.numberOfSecondsForPomodoroSession);
   }
 
   ngOnDestroy(): void {
@@ -25,14 +25,14 @@ export class TimerComponent implements OnInit, OnDestroy {
 
   startTimer(): void {
     const timer$ = timer(0, 1000).pipe(
-      map(i => this.countdown - i),
-      takeWhile(x => x >= 0)
+      map(oneSecond => this.numberOfSecondsForPomodoroSession - oneSecond),
+      takeWhile(time => time >= 0)
     );
 
     this.timerSubscription = timer$.subscribe(
-      val => this.displayTime(val),
+      numberOfSecondsToDisplay => this.displayTime(numberOfSecondsToDisplay),
       null,
-      () => console.log('Timer completed')
+      () => console.log('Pomodoro session is done!')
     );
   }
 
@@ -44,9 +44,9 @@ export class TimerComponent implements OnInit, OnDestroy {
   }
 
   displayTime(seconds: number): void {
-    const minutes = Math.floor(seconds / 60);
+    const minutesLeft = Math.floor(seconds / 60);
     const secondsLeft = seconds % 60;
-    this.timeDisplay = `${minutes}:${secondsLeft < 10 ? '0' : ''}${secondsLeft}`;
+    this.timeDisplay = `${minutesLeft < 10 ? '0' : ''}${minutesLeft}:${secondsLeft < 10 ? '0' : ''}${secondsLeft}`
   }
 }
 
