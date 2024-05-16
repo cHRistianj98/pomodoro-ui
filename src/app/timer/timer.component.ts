@@ -24,8 +24,13 @@ export class TimerComponent implements OnInit, OnDestroy {
   }
 
   startTimer(): void {
+    if (this.timerSubscription && !this.timerSubscription.closed) {
+      this.timerSubscription.unsubscribe();
+    }
+
+    let remainingSeconds = this.numberOfSecondsForPomodoroSession;
     const timer$ = timer(0, 1000).pipe(
-      map(oneSecond => this.numberOfSecondsForPomodoroSession - oneSecond),
+      map(oneSecond => remainingSeconds - oneSecond),
       takeWhile(time => time >= 0)
     );
 
