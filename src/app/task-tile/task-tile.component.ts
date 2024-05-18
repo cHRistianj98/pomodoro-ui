@@ -1,6 +1,6 @@
-import {Component, Input} from '@angular/core';
-import {Task} from '../task/data/task.model';
-import {TaskService} from "../task/services/task.service";
+import { Component, Input } from '@angular/core';
+import { Task } from '../task/data/task.model';
+import { TaskService } from "../task/services/task.service";
 
 @Component({
   selector: 'app-task-tile',

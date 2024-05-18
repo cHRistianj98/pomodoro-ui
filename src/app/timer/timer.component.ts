@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subscription, timer } from 'rxjs';
-import { map, takeWhile } from 'rxjs/operators';
+import { interval, Subscription } from 'rxjs';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-timer',
@@ -12,11 +12,12 @@ import { map, takeWhile } from 'rxjs/operators';
 })
 export class TimerComponent implements OnInit, OnDestroy {
   private numberOfSecondsForPomodoroSession = 0.1 * 60;
+  private remainingSeconds = this.numberOfSecondsForPomodoroSession;
   timeDisplay = '';
   private timerSubscription?: Subscription;
 
   ngOnInit(): void {
-    this.displayTime(this.numberOfSecondsForPomodoroSession);
+    this.displayTime(this.remainingSeconds);
   }
 
   ngOnDestroy(): void {
@@ -25,20 +26,22 @@ export class TimerComponent implements OnInit, OnDestroy {
 
   startTimer(): void {
     if (this.timerSubscription && !this.timerSubscription.closed) {
-      this.timerSubscription.unsubscribe();
+      return;
     }
 
-    let remainingSeconds = this.numberOfSecondsForPomodoroSession;
-    const timer$ = timer(0, 1000).pipe(
-      map(oneSecond => remainingSeconds - oneSecond),
-      takeWhile(time => time >= 0)
-    );
+    this.timerSubscription = interval(1000)
+      .pipe(takeWhile(() => this.remainingSeconds > 0))
+      .subscribe(() => {
+        this.remainingSeconds--;
+        this.displayTime(this.remainingSeconds);
 
-    this.timerSubscription = timer$.subscribe(
-      numberOfSecondsToDisplay => this.displayTime(numberOfSecondsToDisplay),
-      null,
-      () => console.log('Pomodoro session is done!')
-    );
+        if (this.remainingSeconds === 0) {
+          console.log('Pomodoro session is done!');
+          this.remainingSeconds = this.numberOfSecondsForPomodoroSession
+          this.displayTime(this.remainingSeconds);
+          this.timerSubscription?.unsubscribe();
+        }
+      });
   }
 
   stopTimer(): void {
@@ -51,7 +54,6 @@ export class TimerComponent implements OnInit, OnDestroy {
   displayTime(seconds: number): void {
     const minutesLeft = Math.floor(seconds / 60);
     const secondsLeft = seconds % 60;
-    this.timeDisplay = `${minutesLeft < 10 ? '0' : ''}${minutesLeft}:${secondsLeft < 10 ? '0' : ''}${secondsLeft}`
+    this.timeDisplay = `${minutesLeft < 10 ? '0' : ''}${minutesLeft}:${secondsLeft < 10 ? '0' : ''}${secondsLeft}`;
   }
 }
-
