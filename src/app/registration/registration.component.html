@@ -1,0 +1,22 @@
+<div class="registration-container">
+  <h2>Registration</h2>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="username">Username:</label>
+      <input id="username" formControlName="username" />
+      <div *ngIf="registrationForm.get('username')?.invalid && registrationForm.get('username')?.touched">
+        Username is required
+      </div>
+    </div>
+
+    <div>
+      <label for="password">Password:</label>
+      <input id="password" type="password" formControlName="password" />
+      <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched" style="color: red; margin-bottom: 1em;">
+        Password is required and must be at least 6 characters long
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="registrationForm.invalid">Register</button>
+  </form>
+</div>
