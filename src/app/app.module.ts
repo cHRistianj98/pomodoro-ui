@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { TaskComponent } from './task/task.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { NgForOf, NgIf, NgStyle } from "@angular/common";
+import { CommonModule, NgForOf, NgIf, NgStyle } from "@angular/common";
 import { TaskService } from "./task/services/task.service";
 import { HttpClientModule } from "@angular/common/http";
 import { TaskTileComponent } from "./task-tile/task-tile.component";
 import { RegistrationComponent } from "./registration/registration.component";
-import { BrowserModule } from "@angular/platform-browser";
+import { RegistrationService } from "./registration/services/registration.service";
 
 @NgModule({
   exports: [
@@ -14,6 +14,7 @@ import { BrowserModule } from "@angular/platform-browser";
     RegistrationComponent
   ],
   imports: [
+    CommonModule,
     FormsModule,
     NgForOf,
     HttpClientModule,
@@ -21,7 +22,7 @@ import { BrowserModule } from "@angular/platform-browser";
     ReactiveFormsModule,
     NgIf
   ],
-  providers: [TaskService],
+  providers: [TaskService, RegistrationService], // Important! Put all services here
   declarations: [
     TaskComponent,
     TaskTileComponent,

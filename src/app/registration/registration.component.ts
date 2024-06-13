@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { RegistrationService } from "./services/registration.service";
+import { RegisterRequestDto } from "./data/register-request.dto";
 
 @Component({
   selector: 'app-registration',
@@ -10,7 +12,7 @@ export class RegistrationComponent {
 
   registrationForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService) {
     this.registrationForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -19,7 +21,15 @@ export class RegistrationComponent {
 
   onSubmit() {
     if (this.registrationForm.valid) {
-      console.log('Form Data', this.registrationForm.value);
+      const registerRequestDto: RegisterRequestDto = this.registrationForm.value;
+      this.registrationService.register(registerRequestDto).subscribe(
+        response => {
+          console.log('Registration successful', response);
+        },
+        error => {
+          console.error('Registration failed', error);
+        }
+      );
     }
   }
 }
