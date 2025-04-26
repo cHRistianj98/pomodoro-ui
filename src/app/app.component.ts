@@ -1,15 +1,20 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { TimerComponent } from "./timer/timer.component";
-import { AppModule } from "./app.module";
+import { Component }        from '@angular/core';
+import { CommonModule }     from '@angular/common';
+import { RouterModule }     from '@angular/router';        // zamiast RouterOutlet
+import { TimerComponent }   from './timer/timer.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, TimerComponent, AppModule],
+  imports: [
+    CommonModule,            // directives *ngIf, *ngFor
+    RouterModule,            // directives <router-outlet>
+    TimerComponent,          // standalone-component
+    RegistrationComponent    // standalone-component
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'pomodoro-ui';

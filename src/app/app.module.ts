@@ -7,11 +7,14 @@ import { HttpClientModule } from "@angular/common/http";
 import { TaskTileComponent } from "./task-tile/task-tile.component";
 import { RegistrationComponent } from "./registration/registration.component";
 import { RegistrationService } from "./registration/services/registration.service";
+import { MatButtonModule } from "@angular/material/button";
+import { MatInputModule } from "@angular/material/input";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   exports: [
-    TaskComponent,
-    RegistrationComponent
+    TaskComponent
   ],
   imports: [
     CommonModule,
@@ -20,13 +23,17 @@ import { RegistrationService } from "./registration/services/registration.servic
     HttpClientModule,
     NgStyle,
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    RegistrationComponent
   ],
   providers: [TaskService, RegistrationService], // Important! Put all services here
   declarations: [
     TaskComponent,
     TaskTileComponent,
-    RegistrationComponent
   ]
 })
 export class AppModule {

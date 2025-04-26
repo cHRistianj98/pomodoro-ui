@@ -1,35 +1,50 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegistrationService } from "./services/registration.service";
-import { RegisterRequestDto } from "./data/register-request.dto";
 
 @Component({
   selector: 'app-registration',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule
+  ],
   templateUrl: './registration.component.html',
-  styleUrl: './registration.component.css'
+  styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent {
 
-  registrationForm: FormGroup;
+  form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService) {
-    this.registrationForm = this.formBuilder.group({
-      username: ['', [Validators.required]],
+  isSubmitting = false;
+  error?: string;
+
+  constructor(
+    private fb: FormBuilder,
+    private registrationService: RegistrationService
+  ) {
+    this.form = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
-  onSubmit() {
-    if (this.registrationForm.valid) {
-      const registerRequestDto: RegisterRequestDto = this.registrationForm.value;
-      this.registrationService.register(registerRequestDto).subscribe(
-        response => {
-          console.log('Registration successful', response);
-        },
-        error => {
-          console.error('Registration failed', error);
-        }
-      );
+  submit(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
     }
+
+    this.isSubmitting = true;
+    this.registrationService.register(this.form.value).subscribe({
+      next: () => {
+        this.isSubmitting = false;
+      },
+      error: (err: { error: { message: string; }; }) => {
+        this.isSubmitting = false;
+        this.error = err?.error?.message ?? 'Coś poszło nie tak 🙁';
+      }
+    });
   }
 }
