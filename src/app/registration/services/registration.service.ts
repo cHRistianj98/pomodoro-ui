@@ -8,7 +8,7 @@ import { RegisterRequestDto } from "../data/register-request.dto";
 })
 export class RegistrationService {
 
-  private registerUrl = 'http://localhost:8080/api/v1/register';
+  private registerUrl = 'http://localhost:8080/api/v1/auth/register';
 
   constructor(private httpClient: HttpClient) {
   }

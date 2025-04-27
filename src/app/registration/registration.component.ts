@@ -1,6 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn
+} from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { RegistrationService } from "./services/registration.service";
 
 @Component({
@@ -8,12 +18,14 @@ import { RegistrationService } from "./services/registration.service";
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
   ],
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent {
+  faUserPlus = faUserPlus;
 
   form: FormGroup;
 
@@ -25,10 +37,39 @@ export class RegistrationComponent {
     private registrationService: RegistrationService
   ) {
     this.form = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    });
+        username: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(3)
+          ]
+        ],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.pattern(/^(?=.*[A-Z])(?=.*[.,!@]).{8,}$/)
+          ]
+        ],
+        confirmPassword: [
+          '',
+          [Validators.required,]
+        ]
+      },
+      {
+        validators: [this.passwordMatchValidator]
+      }
+    );
   }
+
+  private passwordMatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
+    const password = group.get('password')?.value;
+    const confirm = group.get('confirmPassword')?.value;
+    return password && confirm && password !== confirm
+      ? {passwordMismatch: true}
+      : null;
+  };
 
   submit(): void {
     if (this.form.invalid) {
@@ -43,7 +84,7 @@ export class RegistrationComponent {
       },
       error: (err: { error: { message: string; }; }) => {
         this.isSubmitting = false;
-        this.error = err?.error?.message ?? 'Coś poszło nie tak 🙁';
+        this.error = err?.error?.message ?? 'Something went wrong 🙁';
       }
     });
   }

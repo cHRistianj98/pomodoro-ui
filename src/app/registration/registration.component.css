@@ -60,3 +60,8 @@
   font-size: .9rem;
   margin: .25rem 0 0;
 }
+
+.btn__icon {
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}

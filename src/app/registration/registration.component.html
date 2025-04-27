@@ -8,19 +8,51 @@
       type="text"
       placeholder="Login"
       formControlName="username"
-      autocomplete="username" />
+      autocomplete="username"/>
 
     <input
       class="field"
       type="password"
-      placeholder="Hasło"
+      placeholder="password"
       formControlName="password"
+      autocomplete="new-password"/>
+
+    <div *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
+      <p class="error" *ngIf="form.get('password')?.hasError('required')">
+        Password is required
+      </p>
+
+      <p class="error" *ngIf="form.get('password')?.hasError('minlength')">
+        Password must have at least 8 characters
+      </p>
+
+      <p class="error" *ngIf="form.get('password')?.hasError('pattern')">
+        Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character
+        <code>. , ! &#64;</code>.
+      </p>
+    </div>
+
+    <input
+      class="field"
+      type="password"
+      placeholder="Powtórz hasło"
+      formControlName="confirmPassword"
       autocomplete="new-password" />
+    <p class="error"
+       *ngIf="form.get('confirmPassword')?.touched && form.get('confirmPassword')?.hasError('required')">
+      Field is empty
+    </p>
+
+    <p class="error"
+       *ngIf="form.touched && form.hasError('passwordMismatch') && form.get('confirmPassword')?.touched">
+      Passwords do not match
+    </p>
 
     <button
       class="btn"
       type="submit"
-      [disabled]="isSubmitting">
+      [disabled]="isSubmitting || form.invalid">
+      <fa-icon [icon]="faUserPlus" class="btn__icon"></fa-icon>
       {{ isSubmitting ? 'Registering…' : 'Register' }}
     </button>
 
