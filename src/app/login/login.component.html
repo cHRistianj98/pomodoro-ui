@@ -1,11 +1,40 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="username">Username:</label>
-    <input id="username" formControlName="username">
-  </div>
-  <div>
-    <label for="password">Password:</label>
-    <input id="password" type="password" formControlName="password">
-  </div>
-  <button type="submit">Login</button>
-</form>
+<div class="login-wrapper">
+  <form class="card" [formGroup]="form" (ngSubmit)="submit()">
+
+    <h1 class="title">Log in</h1>
+
+    <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+
+    <!-- LOGIN -->
+    <input
+      class="field"
+      type="text"
+      placeholder="login"
+      formControlName="username"
+      autocomplete="username" />
+    <p class="error"
+       *ngIf="form.get('username')?.touched && form.get('username')?.hasError('required')">
+      Login is required
+    </p>
+
+    <!-- PASSWORD -->
+    <input
+      class="field"
+      type="password"
+      placeholder="password"
+      formControlName="password"
+      autocomplete="current-password" />
+    <p class="error"
+       *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')">
+      Password is required
+    </p>
+
+    <button
+      class="btn"
+      type="submit"
+      [disabled]="form.invalid">
+      <fa-icon [icon]="faSignInAlt" class="btn__icon"></fa-icon>
+      Log in
+    </button>
+  </form>
+</div>

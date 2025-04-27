@@ -12,6 +12,7 @@ import {
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { RegistrationService } from "./services/registration.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -34,7 +35,8 @@ export class RegistrationComponent {
 
   constructor(
     private fb: FormBuilder,
-    private registrationService: RegistrationService
+    private registrationService: RegistrationService,
+    private router: Router
   ) {
     this.form = this.fb.group({
         username: [
@@ -81,6 +83,14 @@ export class RegistrationComponent {
     this.registrationService.register(this.form.value).subscribe({
       next: () => {
         this.isSubmitting = false;
+        this.router.navigate(
+          ['/login'],
+          {
+            state: {
+              message: 'Registration successful! Please log in.'
+            }
+          }
+        );
       },
       error: (err: { error: { message: string; }; }) => {
         this.isSubmitting = false;

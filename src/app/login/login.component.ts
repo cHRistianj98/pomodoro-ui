@@ -1,32 +1,42 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule }      from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FontAwesomeModule }                from '@fortawesome/angular-fontawesome';
+import { faSignInAlt }                      from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FontAwesomeModule
+  ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
-  loginForm: FormGroup;
+export class LoginComponent implements OnInit {
+  form: FormGroup;
+  successMessage?: string;
+  faSignInAlt = faSignInAlt;
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router
-  ) {
-    this.loginForm = this.fb.group({
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
       username: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required]]
     });
   }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      const loginData = this.loginForm.value;
-      // Tu możesz dodać logikę logowania, np. wywołanie serwisu logowania
-      console.log('Login successful', loginData);
-      // Na przykład, po zalogowaniu, przekieruj do głównej strony
-      this.router.navigate(['/']);
+  ngOnInit() {
+    this.successMessage = history.state?.message;
+  }
+
+  submit(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
     }
+    // TODO: wywołaj serwis logowania
+    console.log('Login:', this.form.value);
   }
 }
