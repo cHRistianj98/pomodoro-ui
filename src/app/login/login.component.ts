@@ -3,6 +3,8 @@ import { CommonModule }      from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FontAwesomeModule }                from '@fortawesome/angular-fontawesome';
 import { faSignInAlt }                      from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from "../core/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -17,11 +19,16 @@ import { faSignInAlt }                      from '@fortawesome/free-solid-svg-ic
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
+  error?: string;
   successMessage?: string;
   faSignInAlt = faSignInAlt;
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
+  constructor(
+    private formBuilder: FormBuilder,
+    private auth: AuthService,
+    private router: Router
+  ) {
+    this.form = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
@@ -36,7 +43,17 @@ export class LoginComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-    // TODO: wywołaj serwis logowania
+
+    this.auth.login(this.form.value).subscribe({
+      next: (response) => {
+        this.auth.token = response.accessToken;
+        this.router.navigate(['/timer']);
+      },
+      error: err => {
+        this.error = err?.error?.message || 'Wrong login data';
+      }
+    });
+
     console.log('Login:', this.form.value);
   }
 }
