@@ -34,6 +34,7 @@
   padding: 0;
   margin: 0 0 1rem;
 }
+
 .task-list li {
   display: flex;
   justify-content: space-between;
@@ -55,7 +56,22 @@
 }
 
 .task-form .field {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #FF6347;
+  border-radius: 0.75rem;
+  background: #fff;
+  transition: box-shadow 0.2s, border-color 0.2s;
 }
+
+.task-form .field:focus {
+  outline: none;
+  border-color: #E64A28;
+  box-shadow: 0 0 0 3px rgba(255, 99, 71, 0.35);
+}
+
 .task-form .btn {
   justify-content: center;
 }
