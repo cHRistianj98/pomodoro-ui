@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule }      from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FontAwesomeModule }                from '@fortawesome/angular-fontawesome';
-import { faSignInAlt }                      from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from "../core/auth.service";
 import { Router } from "@angular/router";
 
@@ -50,10 +50,12 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/timer']);
       },
       error: err => {
-        this.error = err?.error?.message || 'Wrong login data';
+        this.error = err?.error?.message || 'Invalid username or password';
       }
     });
 
     console.log('Login:', this.form.value);
   }
+
+  protected readonly faCheckCircle = faCheckCircle;
 }

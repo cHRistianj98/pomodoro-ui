@@ -10,7 +10,7 @@ import {
   ValidatorFn
 } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus, faSignInAlt, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { RegistrationService } from "./services/registration.service";
 import { Router } from '@angular/router';
 
@@ -26,12 +26,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent {
-  faUserPlus = faUserPlus;
-
   form: FormGroup;
+  faUserPlus = faUserPlus;
+  faSignInAlt     = faSignInAlt;
+  faCheckCircle   = faCheckCircle;
 
   isSubmitting = false;
   error?: string;
+  successMessage?: string;
 
   constructor(
     private fb: FormBuilder,
@@ -72,6 +74,10 @@ export class RegistrationComponent {
       ? {passwordMismatch: true}
       : null;
   };
+
+  ngOnInit() {
+    this.successMessage = history.state?.message;
+  }
 
   submit(): void {
     if (this.form.invalid) {

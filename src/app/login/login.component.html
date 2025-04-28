@@ -3,8 +3,10 @@
 
     <h1 class="title">Log in</h1>
 
-    <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
-
+    <p class="success" *ngIf="successMessage">
+      <fa-icon [icon]="faCheckCircle" class="success__icon"></fa-icon>
+      {{ successMessage }}
+    </p>
     <!-- LOGIN -->
     <input
       class="field"
@@ -28,6 +30,7 @@
        *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')">
       Password is required
     </p>
+    <p class="error" *ngIf="error">{{ error }}</p>
 
     <button
       class="btn"
