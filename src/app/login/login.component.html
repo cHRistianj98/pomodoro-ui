@@ -30,8 +30,6 @@
        *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')">
       Password is required
     </p>
-    <p class="error" *ngIf="error">{{ error }}</p>
-
     <button
       class="btn"
       type="submit"
@@ -39,5 +37,12 @@
       <fa-icon [icon]="faSignInAlt" class="btn__icon"></fa-icon>
       Log in
     </button>
+
+    <p class="info">
+      Don’t have an account?
+      <a routerLink="/register">Register</a>
+    </p>
+
+    <p class="error" *ngIf="error">{{ error }}</p>
   </form>
 </div>

@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { FontAwesomeModule }                from '@fortawesome/angular-fontawesome';
 import { faCheckCircle, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from "../core/auth.service";
-import { Router } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,8 @@ import { Router } from "@angular/router";
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    RouterModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
