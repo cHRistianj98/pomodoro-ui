@@ -41,6 +41,21 @@ export class TimerComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.loadTasks();
+  }
+
+  private loadTasks(): void {
+    this.taskService.getTasks().subscribe({
+      next: (allTasks) => {
+        this.tasks = allTasks;
+      },
+      error: (err) => {
+        console.error('Tasks could not be fetched', err);
+      }
+    });
+  }
+
   get minutes(): string {
     const m = Math.floor(this.timeLeft / 60);
     return m < 10 ? `0${m}` : `${m}`;

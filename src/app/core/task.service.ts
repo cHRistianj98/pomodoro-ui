@@ -11,6 +11,17 @@ export class TaskService {
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 
+  getTasks(): Observable<TaskDto[]> {
+    const token = this.auth.token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.get<TaskDto[]>(
+      this.baseUrl,
+      { headers }
+    );
+  }
+
   createTask(task: {
     description: string;
     numberOfPomodoroSessions: number;
