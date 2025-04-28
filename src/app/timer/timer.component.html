@@ -1,9 +1,14 @@
-<div>
-  <div class="timer-container">
-    <h1>{{ timeDisplay }}</h1>
+<div class="timer-wrapper">
+  <div class="timer-display">
+    {{ minutes }}:{{ seconds }}
   </div>
-  <div class="button-container">
-    <button (click)="startTimer()">Start</button>
-    <button (click)="stopTimer()">Stop</button>
+  <div class="buttons">
+    <button class="btn" (click)="start()">
+      <fa-icon [icon]="faPlay" class="btn__icon"></fa-icon>
+      Start
+    </button>
+    <button class="btn" disabled>
+      Stop
+    </button>
   </div>
 </div>

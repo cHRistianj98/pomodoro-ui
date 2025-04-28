@@ -1,59 +1,40 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { interval, Subscription } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-timer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FontAwesomeModule],
   templateUrl: './timer.component.html',
-  styleUrls: ['./timer.component.css']
+  styleUrls: ['./timer.component.scss']
 })
-export class TimerComponent implements OnInit, OnDestroy {
-  private numberOfSecondsForPomodoroSession = 0.1 * 60;
-  private remainingSeconds = this.numberOfSecondsForPomodoroSession;
-  timeDisplay = '';
-  private timerSubscription?: Subscription;
+export class TimerComponent {
+  private readonly initialSeconds = 25 * 60;
+  timeLeft = this.initialSeconds;
+  intervalId?: number;
+  faPlay = faPlay;
 
-  ngOnInit(): void {
-    this.displayTime(this.remainingSeconds);
+  get minutes(): string {
+    const m = Math.floor(this.timeLeft / 60);
+    return m < 10 ? `0${m}` : `${m}`;
   }
 
-  ngOnDestroy(): void {
-    this.timerSubscription?.unsubscribe();
+  get seconds(): string {
+    const s = this.timeLeft % 60;
+    return s < 10 ? `0${s}` : `${s}`;
   }
 
-  startTimer(): void {
-    if (this.timerSubscription && !this.timerSubscription.closed) {
-      return;
-    }
-
-    this.timerSubscription = interval(1000)
-      .pipe(takeWhile(() => this.remainingSeconds > 0))
-      .subscribe(() => {
-        this.remainingSeconds--;
-        this.displayTime(this.remainingSeconds);
-
-        if (this.remainingSeconds === 0) {
-          console.log('Pomodoro session is done!');
-          this.remainingSeconds = this.numberOfSecondsForPomodoroSession
-          this.displayTime(this.remainingSeconds);
-          this.timerSubscription?.unsubscribe();
-        }
-      });
-  }
-
-  stopTimer(): void {
-    if (this.timerSubscription) {
-      this.timerSubscription.unsubscribe();
-      this.timerSubscription = undefined;
-    }
-  }
-
-  displayTime(seconds: number): void {
-    const minutesLeft = Math.floor(seconds / 60);
-    const secondsLeft = seconds % 60;
-    this.timeDisplay = `${minutesLeft < 10 ? '0' : ''}${minutesLeft}:${secondsLeft < 10 ? '0' : ''}${secondsLeft}`;
+  start(): void {
+    if (this.intervalId) return;
+    this.intervalId = window.setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        clearInterval(this.intervalId);
+        this.intervalId = undefined;
+      }
+    }, 1000);
   }
 }
