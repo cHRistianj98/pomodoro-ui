@@ -35,7 +35,7 @@ export class TimerComponent {
     this.taskForm = this.formBuilder.group({
       description: ['', [Validators.required]],
       numberOfPomodoroSessions: [
-        null,
+        1,
         [Validators.required, Validators.min(1)]
       ]
     });
@@ -70,21 +70,23 @@ export class TimerComponent {
   }
 
   addTask(): void {
-    if (this.taskForm.valid) {
+    if (this.taskForm.invalid) {
       this.taskForm.markAllAsTouched();
       return;
     }
-    this.taskService.createTask(this.taskForm.value).subscribe({
-      next: task => {
-        this.tasks.unshift(task);
-        this.taskForm.reset({
-          description: '',
-          numberOfPomodoroSessions: null
-        })
-      },
-      error: () => {
-        console.error('The task could not be created');
-      }
-    });
+    const {description, numberOfPomodoroSessions} = this.taskForm.value;
+    this.taskService.createTask({description, numberOfPomodoroSessions})
+      .subscribe({
+        next: (task: TaskDto) => {
+          this.tasks.unshift(task);
+          this.taskForm.reset({
+            description: '',
+            numberOfPomodoroSessions: 1
+          });
+        },
+        error: err => {
+          console.error('Błąd przy dodawaniu taska', err);
+        }
+      });
   }
 }
