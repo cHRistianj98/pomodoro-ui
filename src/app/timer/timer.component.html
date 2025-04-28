@@ -14,4 +14,30 @@
       </button>
     </div>
   </div>
+
+  <div class="task-section">
+    <ul class="task-list">
+      <li *ngFor="let t of tasks">
+        <span class="task-desc">{{ t.description }}</span>
+        <span class="task-count">{{ t.numberOfPomodoroSessions }}×</span>
+      </li>
+    </ul>
+
+    <form class="task-form card" [formGroup]="taskForm" (ngSubmit)="addTask()">
+      <input
+        class="field"
+        formControlName="description"
+        placeholder="Task description" />
+      <input
+        class="field"
+        type="number"
+        formControlName="numberOfPomodoroSessions"
+        placeholder="Sessions"
+        min="1" />
+      <button class="btn" type="submit" [disabled]="taskForm.invalid">
+        <fa-icon [icon]="faPlusCircle" class="btn__icon"></fa-icon>
+        Add new task
+      </button>
+    </form>
+  </div>
 </div>
