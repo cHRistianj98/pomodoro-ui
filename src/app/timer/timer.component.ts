@@ -33,9 +33,15 @@ export class TimerComponent {
       if (this.timeLeft > 0) {
         this.timeLeft--;
       } else {
-        clearInterval(this.intervalId);
-        this.intervalId = undefined;
+        this.stop()
       }
     }, 1000);
+  }
+
+  stop(): void {
+    if (this.intervalId != null) {
+      clearInterval(this.intervalId);
+      this.intervalId = undefined;
+    }
   }
 }

@@ -4,11 +4,11 @@
       {{ minutes }}:{{ seconds }}
     </div>
     <div class="buttons">
-      <button class="btn" (click)="start()">
+      <button class="btn" (click)="start()" [disabled]="!!intervalId">
         <fa-icon [icon]="faPlay" class="btn__icon"></fa-icon>
         Start
       </button>
-      <button class="btn" disabled>
+      <button class="btn" (click)="stop()" [disabled]="!intervalId">
         <fa-icon [icon]="faStop" class="btn__icon"></fa-icon>
         Stop
       </button>
