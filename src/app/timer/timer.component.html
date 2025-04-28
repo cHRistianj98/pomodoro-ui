@@ -1,14 +1,17 @@
 <div class="timer-wrapper">
-  <div class="timer-display">
-    {{ minutes }}:{{ seconds }}
-  </div>
-  <div class="buttons">
-    <button class="btn" (click)="start()">
-      <fa-icon [icon]="faPlay" class="btn__icon"></fa-icon>
-      Start
-    </button>
-    <button class="btn" disabled>
-      Stop
-    </button>
+  <div class="timer-container">
+    <div class="timer-display">
+      {{ minutes }}:{{ seconds }}
+    </div>
+    <div class="buttons">
+      <button class="btn" (click)="start()">
+        <fa-icon [icon]="faPlay" class="btn__icon"></fa-icon>
+        Start
+      </button>
+      <button class="btn" disabled>
+        <fa-icon [icon]="faStop" class="btn__icon"></fa-icon>
+        Stop
+      </button>
+    </div>
   </div>
 </div>

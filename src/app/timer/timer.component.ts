@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlay } from '@fortawesome/free-solid-svg-icons';
+import { faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-timer',
@@ -15,6 +15,7 @@ export class TimerComponent {
   timeLeft = this.initialSeconds;
   intervalId?: number;
   faPlay = faPlay;
+  faStop = faStop;
 
   get minutes(): string {
     const m = Math.floor(this.timeLeft / 60);

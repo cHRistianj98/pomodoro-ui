@@ -1,42 +1,71 @@
 .timer-wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   height: 100vh;
   background: #fff;
 }
 
+.timer-container {
+  border: 4px solid #FF6347;
+  border-radius: 1.5rem;
+  min-width: 20rem;
+  padding: 3rem 4rem;
+  background: #fff8f5;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .timer-display {
-  font-size: 4rem;
+  font-size: 6rem;
   font-weight: bold;
   color: #BF360C;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .buttons {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 20rem;
 }
 
 .btn {
-  padding: .8rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
+  padding: 1rem 2rem;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: #fff;
   background: #FF6347;
   border: none;
-  border-radius: .75rem;
+  border-radius: 1rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  transition: background .2s;
+  transition: background .2s, transform .1s;
+  flex: 1;
+  justify-content: center;
 
-  &:hover:not(:disabled)    { background: #E64A28; }
-  &:disabled               { opacity: .6; cursor: default; }
+  &:hover:not(:disabled) {
+    background: #E64A28;
+    transform: scale(1.05);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: .6;
+    cursor: default;
+  }
 }
 
 .btn__icon {
-  margin-right: .5rem;
+  margin-right: .75rem;
   vertical-align: middle;
 }
