@@ -12,7 +12,7 @@ import {
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUserPlus, faSignInAlt, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { RegistrationService } from "./services/registration.service";
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -20,7 +20,9 @@ import { Router } from '@angular/router';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    RouterLink,
+    RouterModule
   ],
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']

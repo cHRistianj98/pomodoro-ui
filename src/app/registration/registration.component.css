@@ -65,3 +65,21 @@
   margin-right: 0.5rem;
   vertical-align: middle;
 }
+
+.info {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #333;
+
+  a {
+    color: #FF6347;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 0.25rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

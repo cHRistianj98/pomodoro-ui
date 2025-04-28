@@ -56,6 +56,11 @@
       {{ isSubmitting ? 'Registering…' : 'Register' }}
     </button>
 
+    <p class="info">
+      Do you already have an account?
+      <a routerLink="/login">Log in</a>
+    </p>
+
     <p class="error" *ngIf="error">{{ error }}</p>
   </form>
 </div>
