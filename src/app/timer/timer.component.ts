@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlay, faStop, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlay, faStop, faPlusCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { TaskDto } from "../core/task.dto";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { TaskService } from "../core/task.service";
@@ -13,7 +13,7 @@ import { TaskService } from "../core/task.service";
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.scss']
 })
-export class TimerComponent {
+export class TimerComponent implements OnInit{
   // timer
   private readonly initialSeconds = 25 * 60;
   timeLeft = this.initialSeconds;
@@ -23,6 +23,7 @@ export class TimerComponent {
   faPlay = faPlay;
   faStop = faStop;
   faPlusCircle = faPlusCircle;
+  faCheckCircle = faCheckCircle;
 
   // tasks
   tasks: TaskDto[] = [];
@@ -101,6 +102,19 @@ export class TimerComponent {
         },
         error: err => {
           console.error('Błąd przy dodawaniu taska', err);
+        }
+      });
+  }
+
+  toggleDone(task: TaskDto): void {
+    this.taskService.updateTaskDone(task.id!, !task.done)
+      .subscribe({
+        next: (updated) => {
+          const idx = this.tasks.findIndex(t => t.id === updated.id);
+          if (idx > -1) this.tasks[idx] = updated;
+        },
+        error: err => {
+          console.error('Cannot be marked done', err);
         }
       });
   }

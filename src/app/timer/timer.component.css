@@ -30,9 +30,60 @@
 }
 
 .task-list {
-  list-style: none;
   padding: 0;
   margin: 0 0 1rem;
+  list-style: none;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  border: 2px solid #FF6347;
+  border-radius: 1rem;
+  background: #fff8f5;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+}
+
+/* Text in the tile */
+.task-content {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+.task-desc {
+  flex: 1;
+  margin: 0 1rem;
+  font-weight: 600;
+  color: #333;
+}
+.task-progress {
+  font-size: 0.9rem;
+  color: #BF360C;
+  white-space: nowrap;
+}
+.task-count {
+  font-size: 0.9rem;
+  color: #BF360C;
+}
+
+.task-done-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  font-size: 1.25rem;
+  color: #2E7D32;
+  transition: transform .1s;
+
+  &:hover:not(:disabled) {
+    transform: scale(1.2);
+  }
+  &:disabled {
+    color: #A5D6A7;
+    cursor: default;
+  }
 }
 
 .task-list li {

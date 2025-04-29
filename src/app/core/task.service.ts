@@ -37,4 +37,16 @@ export class TaskService {
     });
     return this.http.post<TaskDto>(this.baseUrl, payload, { headers });
   }
+
+  updateTaskDone(id: number, done: boolean): Observable<TaskDto> {
+    const token = this.auth.token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.patch<TaskDto>(
+      `${this.baseUrl}/${id}`,
+      { done },
+      { headers }
+    );
+  }
 }

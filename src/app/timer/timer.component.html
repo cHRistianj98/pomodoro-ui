@@ -17,9 +17,21 @@
 
   <div class="task-section">
     <ul class="task-list">
-      <li *ngFor="let t of tasks">
+      <li *ngFor="let t of tasks" class="task-item">
+        <!-- Button on the left side -->
+        <button
+          class="task-done-btn"
+          [disabled]="t.done"
+          (click)="toggleDone(t)">
+          <fa-icon [icon]="faCheckCircle"></fa-icon>
+        </button>
+
+        <!-- Elastic description -->
         <span class="task-desc">{{ t.description }}</span>
-        <span class="task-count">{{ t.numberOfPomodoroSessions }}×</span>
+        <!-- Task progress -->
+        <span class="task-progress">
+          {{ t.currentPomodoroSession }}/{{ t.numberOfPomodoroSessions }}
+        </span>
       </li>
     </ul>
 
