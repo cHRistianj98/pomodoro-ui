@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlay, faStop, faPlusCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlay, faStop, faPlusCircle, faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { TaskDto } from "../core/task.dto";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { TaskService } from "../core/task.service";
@@ -24,6 +24,7 @@ export class TimerComponent implements OnInit{
   faStop = faStop;
   faPlusCircle = faPlusCircle;
   faCheckCircle = faCheckCircle;
+  faTimesCircle = faTimesCircle;
 
   // tasks
   tasks: TaskDto[] = [];
@@ -117,5 +118,17 @@ export class TimerComponent implements OnInit{
           console.error('Cannot be marked done', err);
         }
       });
+  }
+
+  deleteTask(task: TaskDto): void {
+    if (!task.id) {
+      return;
+    }
+    this.taskService.deleteTask(task.id).subscribe({
+      next: () => {
+        this.tasks = this.tasks.filter(t => t.id !== task.id);
+      },
+      error: err => console.error('Error during task deletion', err)
+    });
   }
 }

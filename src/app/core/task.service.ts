@@ -49,4 +49,12 @@ export class TaskService {
       { headers }
     );
   }
+
+  deleteTask(id: number): Observable<void> {
+    const token = this.auth.token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.delete<void>(`${this.baseUrl}/${id}`, { headers });
+  }
 }

@@ -34,6 +34,11 @@
         <span class="task-progress">
           {{ t.currentPomodoroSession }}/{{ t.numberOfPomodoroSessions }}
         </span>
+
+        <!-- Remove button -->
+        <button class="task-delete-btn" (click)="deleteTask(t)">
+          <fa-icon [icon]="faTimesCircle"></fa-icon>
+        </button>
       </li>
     </ul>
 

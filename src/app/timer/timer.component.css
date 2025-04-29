@@ -200,3 +200,18 @@
 .task-done-btn:hover fa-icon {
   transform: scale(1.2);
 }
+
+.task-delete-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  font-size: 1.25rem;
+  color: #C62828;
+  transition: transform .1s, color .2s;
+
+  &:hover {
+    transform: scale(1.2);
+    color: #E64A28;
+  }
+}
