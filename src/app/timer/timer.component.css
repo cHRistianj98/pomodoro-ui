@@ -175,3 +175,28 @@
   margin-right: .75rem;
   vertical-align: middle;
 }
+
+/* If task is done, we add breakthrough */
+.task-item.task-done {
+  opacity: 0.6;
+
+  .task-desc {
+    text-decoration: line-through;
+  }
+}
+
+/* Ikona „✓” – domyślnie szara, gdy task niegotowy; gdy done → zielona */
+.task-done-btn fa-icon {
+  color: #B0BEC5; /* gray, undone */
+  font-size: 1.25rem;
+  transition: color .2s, transform .1s;
+}
+
+.task-done-btn fa-icon.icon-done {
+  color: #2E7D32; /* green, done */
+}
+
+/* bigger size for done */
+.task-done-btn:hover fa-icon {
+  transform: scale(1.2);
+}

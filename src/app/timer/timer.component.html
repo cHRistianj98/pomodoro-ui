@@ -21,9 +21,11 @@
         <!-- Button on the left side -->
         <button
           class="task-done-btn"
-          [disabled]="t.done"
           (click)="toggleDone(t)">
-          <fa-icon [icon]="faCheckCircle"></fa-icon>
+          <fa-icon
+            [icon]="faCheckCircle"
+            [class.icon-done]="t.done"
+          ></fa-icon>
         </button>
 
         <!-- Elastic description -->
