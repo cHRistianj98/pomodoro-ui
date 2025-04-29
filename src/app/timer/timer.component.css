@@ -185,7 +185,7 @@
   }
 }
 
-/* Ikona „✓” – domyślnie szara, gdy task niegotowy; gdy done → zielona */
+/* Icon „✓” – gray be default, if task is undone; if done → green */
 .task-done-btn fa-icon {
   color: #B0BEC5; /* gray, undone */
   font-size: 1.25rem;
