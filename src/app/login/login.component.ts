@@ -51,7 +51,8 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/timer']);
       },
       error: err => {
-        this.error = err?.error?.message || 'Invalid username or password';
+        console.log('[Login] backend error:', err);
+        this.error = 'Invalid username or password';
       }
     });
 

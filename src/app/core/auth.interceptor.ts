@@ -23,6 +23,14 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
+    const url = req.url;
+    if (
+      url.endsWith('/api/v1/auth/login') ||
+      url.endsWith('/api/v1/auth/register')
+    ) {
+      return next.handle(req);
+    }
+
     const token = this.auth.token;
     if (token) {
       req = req.clone({
