@@ -44,6 +44,17 @@
   border-radius: 1rem;
   background: #fff8f5;
   box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.task-item:hover {
+  background: #ffece6;
+}
+
+.task-item:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 99, 71, .5);
 }
 
 /* Text in the tile */
@@ -214,4 +225,24 @@
     transform: scale(1.2);
     color: #E64A28;
   }
+}
+
+active-heading {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #E64A28;
+  margin: 0 0 0.5rem;
+  visibility: visible;
+}
+
+.active-heading.hidden {
+  visibility: hidden;
+}
+
+.task-item.task-active {
+  border-color: #E64A28;
+  background: #ffece6;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
+  transform: translateY(-2px);
+  transition: background .2s, box-shadow .2s, transform .1s;
 }

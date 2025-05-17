@@ -13,7 +13,7 @@ import { TaskService } from "../core/task.service";
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.scss']
 })
-export class TimerComponent implements OnInit{
+export class TimerComponent implements OnInit {
   // timer
   private readonly initialSeconds = 25 * 60;
   timeLeft = this.initialSeconds;
@@ -28,6 +28,10 @@ export class TimerComponent implements OnInit{
 
   // tasks
   tasks: TaskDto[] = [];
+  /** active task or null */
+  activeTask: TaskDto | null = null;
+
+  // form
   taskForm: FormGroup;
 
   constructor(
@@ -74,7 +78,7 @@ export class TimerComponent implements OnInit{
       if (this.timeLeft > 0) {
         this.timeLeft--;
       } else {
-        this.stop()
+        this.stop();
       }
     }, 1000);
   }
@@ -102,7 +106,7 @@ export class TimerComponent implements OnInit{
           });
         },
         error: err => {
-          console.error('Błąd przy dodawaniu taska', err);
+          console.error('Error during adding task', err);
         }
       });
   }
@@ -110,13 +114,11 @@ export class TimerComponent implements OnInit{
   toggleDone(task: TaskDto): void {
     this.taskService.updateTaskDone(task.id!, !task.done)
       .subscribe({
-        next: (updated) => {
+        next: updated => {
           const idx = this.tasks.findIndex(t => t.id === updated.id);
           if (idx > -1) this.tasks[idx] = updated;
         },
-        error: err => {
-          console.error('Cannot be marked done', err);
-        }
+        error: err => console.error('Cannot be marked done', err)
       });
   }
 
@@ -130,5 +132,15 @@ export class TimerComponent implements OnInit{
       },
       error: err => console.error('Error during task deletion', err)
     });
+  }
+
+  /** Set given task as active */
+  selectTask(task: TaskDto): void {
+    this.activeTask = task;
+  }
+
+  /** is the task active */
+  isActive(task: TaskDto): boolean {
+    return this.activeTask?.id === task.id;
   }
 }

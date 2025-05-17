@@ -15,13 +15,25 @@
     </div>
   </div>
 
+  <h2
+    class="active-heading"
+    [class.hidden]="!activeTask"
+  >
+    Active task: {{ activeTask?.description }}
+  </h2>
+
   <div class="task-section">
     <ul class="task-list">
-      <li *ngFor="let t of tasks" class="task-item">
-        <!-- Button on the left side -->
+      <li
+        *ngFor="let t of tasks"
+        class="task-item"
+        (click)="selectTask(t)"
+        [class.task-active]="isActive(t)"
+      >
         <button
           class="task-done-btn"
-          (click)="toggleDone(t)">
+          (click)="toggleDone(t); $event.stopPropagation()"
+        >
           <fa-icon
             [icon]="faCheckCircle"
             [class.icon-done]="t.done"
@@ -36,23 +48,32 @@
         </span>
 
         <!-- Remove button -->
-        <button class="task-delete-btn" (click)="deleteTask(t)">
+        <button
+          class="task-delete-btn"
+          (click)="deleteTask(t); $event.stopPropagation()"
+        >
           <fa-icon [icon]="faTimesCircle"></fa-icon>
         </button>
       </li>
     </ul>
 
-    <form class="task-form card" [formGroup]="taskForm" (ngSubmit)="addTask()">
+    <form
+      class="task-form card"
+      [formGroup]="taskForm"
+      (ngSubmit)="addTask()"
+    >
       <input
         class="field"
         formControlName="description"
-        placeholder="Task description" />
+        placeholder="Task description"
+      />
       <input
         class="field"
         type="number"
         formControlName="numberOfPomodoroSessions"
         placeholder="Sessions"
-        min="1" />
+        min="1"
+      />
       <button class="btn" type="submit" [disabled]="taskForm.invalid">
         <fa-icon [icon]="faPlusCircle" class="btn__icon"></fa-icon>
         Add new task
