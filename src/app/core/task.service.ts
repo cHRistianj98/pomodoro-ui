@@ -57,4 +57,13 @@ export class TaskService {
     });
     return this.http.delete<void>(`${this.baseUrl}/${id}`, { headers });
   }
+
+  /** Increment currentPomodoroSession */
+  incrementSession(taskId: number): Observable<TaskDto> {
+    const token = this.auth.token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.patch<TaskDto>(`${this.baseUrl}/${taskId}/session-up`, null, { headers });
+  }
 }

@@ -26,6 +26,9 @@ export class TimerComponent implements OnInit {
   faCheckCircle = faCheckCircle;
   faTimesCircle = faTimesCircle;
 
+  // bell sound
+  private bellAudio = new Audio('assets/short-bell.mp3');
+
   // tasks
   tasks: TaskDto[] = [];
   /** active task or null */
@@ -78,7 +81,7 @@ export class TimerComponent implements OnInit {
       if (this.timeLeft > 0) {
         this.timeLeft--;
       } else {
-        this.stop();
+        this.onTimerFinish();
       }
     }, 1000);
   }
@@ -87,6 +90,33 @@ export class TimerComponent implements OnInit {
     if (this.intervalId != null) {
       clearInterval(this.intervalId);
       this.intervalId = undefined;
+    }
+  }
+
+  /** Triggered when timer achieves 00:00 */
+  private onTimerFinish(): void {
+    this.stop();
+
+    // timer reset
+    this.timeLeft = this.initialSeconds;
+
+    // bell
+    this.bellAudio.play().catch(err => {
+      console.warn('Failed to reproduce the ringtone:', err);
+    });
+
+    // increment current pomodoro session on the backend
+    if (this.activeTask?.id != null) {
+      this.taskService.incrementSession(this.activeTask.id)
+        .subscribe({
+          next: updatedTask => {
+            // update task list and active task
+            const idx = this.tasks.findIndex(t => t.id === updatedTask.id);
+            if (idx > -1) this.tasks[idx] = updatedTask;
+            this.activeTask = updatedTask;
+          },
+          error: err => console.error('Error during session incrementation', err)
+        });
     }
   }
 
